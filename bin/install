@@ -33,7 +33,7 @@ install_trdsql() {
     fi
 
     curl -fL# -o "${filename}" "${download}"
-    unzip -j "${filename}"
+    unzip "${filename}"
     mv "${install_path}/tmp/trdsql" "${install_path}/bin/trdsql"
     chmod +x "${install_path}/bin/trdsql"
 }
