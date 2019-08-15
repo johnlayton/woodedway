@@ -22,14 +22,14 @@ install_trdsql() {
     fi
 
     download="https://github.com/noborus/trdsql/releases/download/v${install_version}/trdsql_${os}_amd64.zip"
-    filename="${install_path}/bin/deno"
+    filename="${install_path}/bin/trdsql"
 
     if [ ! -d "${install_path}/bin" ]; then
         mkdir -p "${install_path}/bin"
     fi
 
     curl -fL# -o "${filename}.zip" "${download}"
-    gunzip -d -f -v "${filename}.zip"
+    unzip -j "${filename}.zip"
     chmod +x "${filename}"
 }
 
