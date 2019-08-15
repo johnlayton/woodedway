@@ -7,7 +7,7 @@ install_trdsql() {
     local install_path=$3
 
     case $(uname -s) in
-    Darwin) os="osx" ;;
+    Darwin) os="darwin" ;;
     *) os="linux" ;;
     esac
 
