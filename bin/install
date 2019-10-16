@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 set -e
 
-install_trdsql() {
+#
+# https://github.com/kubernetes-sigs/kind/releases/download/v0.5.1/kind-darwin-amd64
+#
+
+install_kind() {
     local install_type=$1
     local install_version=$2
     local install_path=$3
@@ -21,22 +25,17 @@ install_trdsql() {
         exit
     fi
 
-    download="https://github.com/noborus/trdsql/releases/download/v${install_version}/trdsql_${os}_amd64.zip"
-    filename="${install_path}/tmp/trdsql.zip"
-
-    if [ ! -d "${install_path}/bin" ]; then
-        mkdir -p "${install_path}/tmp"
-    fi
+    download="https://github.com/kubernetes-sigs/trdsql/kind/download/v${install_version}/kind${os}_amd64"
+    filename="${install_path}/bin/kind"
 
     if [ ! -d "${install_path}/bin" ]; then
         mkdir -p "${install_path}/bin"
     fi
 
     curl -fL# -o "${filename}" "${download}"
-    unzip -j "${filename}" -d "${install_path}/bin"
-    chmod +x "${install_path}/bin/trdsql"
+    chmod +x "${install_path}/bin/kind"
 }
 
-install_trdsql $ASDF_INSTALL_TYPE $ASDF_INSTALL_VERSION $ASDF_INSTALL_PATH
+install_kind $ASDF_INSTALL_TYPE $ASDF_INSTALL_VERSION $ASDF_INSTALL_PATH
 
-asdf reshim trdsql "$ASDF_INSTALL_VERSION"
+asdf reshim kind "$ASDF_INSTALL_VERSION"
