@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 echo $(
-  curl -sSf https://github.com/noborus/trdsql/releases | awk '/noborus\/trdsql\/releases\/download\/.*\/trdsql_darwin_amd64\.zip/{sub(/^.*\/download\/v/,"");sub(/\/trdsql_darwin_amd64\.zip.*$/, "");print}'
+  curl -sSf https://github.com/noborus/trdsql/releases | awk '/noborus\/trdsql\/releases\/download\/.*\/trdsql_.*_darwin_amd64\.zip/{sub(/^.*\/download\/v/,"");sub(/\/trdsql_.*_darwin_amd64\.zip.*$/, "");print}'
 )
