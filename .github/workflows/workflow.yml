@@ -18,12 +18,6 @@ jobs:
       - name: Install asdf
         run: git clone https://github.com/asdf-vm/asdf.git $HOME/asdf
 
-      - name: Install trdsql
-        run: |
-          . $HOME/asdf/asdf.sh
-          asdf plugin-add trdsql
-          asdf install trdsql ${{ matrix.trdsql }}
-          asdf global trdsql ${{ matrix.trdsql }}
       - name: Install trdsql and print help
         run: |
           . $HOME/asdf/asdf.sh
