@@ -1,0 +1,64 @@
+name: main
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest]
+        trdsql: [0.6.3]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Install asdf
+        run: git clone https://github.com/asdf-vm/asdf.git $HOME/asdf
+
+      - name: Install trdsql
+        run: |
+          . $HOME/asdf/asdf.sh
+          asdf plugin-add trdsql
+          asdf install trdsql ${{ matrix.trdsql }}
+          asdf global trdsql ${{ matrix.trdsql }}
+      - name: Install trdsql and print help
+        run: |
+          . $HOME/asdf/asdf.sh
+          asdf plugin-add kubectx $GITHUB_WORKSPACE
+          asdf install trdsql ${{ matrix.trdsql }}
+          asdf global trdsql ${{ matrix.trdsql }}
+          trdsql --help
+  test:
+    runs-on: macOS-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Install asdf
+        run: git clone https://github.com/asdf-vm/asdf.git $HOME/asdf
+
+      - name: Install trdsql
+        run: |
+          . $HOME/asdf/asdf.sh
+          asdf plugin-add trdsql
+          asdf install trdsql 0.6.3
+          asdf global trdsql 0.6.3
+      - name: Test plugin
+        env:
+          GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          . $HOME/asdf/asdf.sh
+          asdf plugin-test trdsql $GITHUB_WORKSPACE 'trdsql --help' --asdf-tool-version 0.6.3
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Run ShellCheck
+        run: shellcheck bin/*
