@@ -24,7 +24,7 @@ jobs:
           asdf plugin-add trdsql $GITHUB_WORKSPACE
           asdf install trdsql ${{ matrix.trdsql }}
           asdf global trdsql ${{ matrix.trdsql }}
-          trdsql --help
+          trdsql -help
   test:
     runs-on: macOS-latest
 
