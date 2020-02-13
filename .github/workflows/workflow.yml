@@ -1,56 +1,30 @@
 name: main
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 0 * * 5"
 
 jobs:
-  build:
+
+  plugin_test:
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS-latest]
-        trdsql: [0.6.3, 0.7.4]
+        os: [macos-latest, ubuntu-latest]
+        ver: [0.6.3, 0.7.4]
 
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-
-      - name: Install asdf
-        run: git clone https://github.com/asdf-vm/asdf.git $HOME/asdf
-
-      - name: Install trdsql and print version
-        run: |
-          . $HOME/asdf/asdf.sh
-          asdf plugin-add trdsql $GITHUB_WORKSPACE
-          asdf install trdsql ${{ matrix.trdsql }}
-          asdf global trdsql ${{ matrix.trdsql }}
-          trdsql -version
-  test:
-    strategy:
-      matrix:
-        trdsql: [0.6.3, 0.7.4]
-
-    runs-on: macOS-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-
-      - name: Install asdf
-        run: git clone https://github.com/asdf-vm/asdf.git $HOME/asdf
-
-      - name: Github workspace
-        run: |
-          echo "==============================="
-          echo $GITHUB_WORKSPACE
-          echo "==============================="
-
-      - name: Test plugin
+      - name: asdf_plugin_test
+        uses: asdf-vm/actions/plugin-test@v1.0.0
+        with: ${{ ver }}
+          version:
+          command: trdsql -version
         env:
           GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          . $HOME/asdf/asdf.sh
-          asdf plugin-test trdsql $GITHUB_WORKSPACE 'trdsql -version' --asdf-tool-version ${{matrix.trdsql}}
+
   lint:
     runs-on: ubuntu-latest
 
