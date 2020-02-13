@@ -43,4 +43,4 @@ install_trdsql() {
 
 install_trdsql $ASDF_INSTALL_TYPE $ASDF_INSTALL_VERSION $ASDF_INSTALL_PATH
 
-asdf reshim trdsql "$ASDF_INSTALL_VERSION"
+#asdf reshim trdsql "$ASDF_INSTALL_VERSION"
