@@ -1,8 +1,0 @@
-language: c
-script: asdf plugin-test trdsql https://github.com/johnlayton/woodedway.git 'trdsql -version' --asdf-tool-version 0.6.3
-before_script:
-  - git clone https://github.com/asdf-vm/asdf.git
-  - . asdf/asdf.sh
-os:
-  - linux
-  - osx
