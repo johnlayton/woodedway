@@ -21,7 +21,11 @@ install_trdsql() {
         exit
     fi
 
-    download="https://github.com/noborus/trdsql/releases/download/v${install_version}/trdsql_${os}_amd64.zip"
+    if [ $install_version -lt 0.7.0 ]; then
+      download="https://github.com/noborus/trdsql/releases/download/v${install_version}/trdsql_${os}_amd64.zip"
+    else
+      download="https://github.com/noborus/trdsql/releases/download/v${install_version}/trdsql_v${install_version}_${os}_amd64.zip"
+    fi
     filename="${install_path}/tmp/trdsql.zip"
 
     if [ ! -d "${install_path}/bin" ]; then
