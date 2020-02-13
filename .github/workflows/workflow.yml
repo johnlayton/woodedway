@@ -11,7 +11,7 @@ jobs:
   plugin_test:
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest]
+        os: [macos-latest]
         ver: [0.6.3, 0.7.4]
 
     runs-on: ${{ matrix.os }}
@@ -20,7 +20,7 @@ jobs:
       - name: asdf_plugin_test
         uses: asdf-vm/actions/plugin-test@v1.0.0
         with:
-          version: 0.6.3
+          version: ${{ matrix.ver }}
           command: trdsql -version
         env:
           GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
