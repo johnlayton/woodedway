@@ -21,7 +21,7 @@ jobs:
       - name: Install trdsql and print help
         run: |
           . $HOME/asdf/asdf.sh
-          asdf plugin-add kubectx $GITHUB_WORKSPACE
+          asdf plugin-add trdsql $GITHUB_WORKSPACE
           asdf install trdsql ${{ matrix.trdsql }}
           asdf global trdsql ${{ matrix.trdsql }}
           trdsql --help
