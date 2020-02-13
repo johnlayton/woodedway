@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -x
 
 install_trdsql() {
     local install_type=$1
@@ -21,7 +21,7 @@ install_trdsql() {
         exit
     fi
 
-    if [ $install_version -lt 0.7.0 ]; then
+    if [[ $( echo "$install_version" | cut -d"." -f 1) -lt 1 && $( echo "$install_version" | cut -d"." -f 2) -lt 7 ]]; then
       download="https://github.com/noborus/trdsql/releases/download/v${install_version}/trdsql_${os}_amd64.zip"
     else
       download="https://github.com/noborus/trdsql/releases/download/v${install_version}/trdsql_v${install_version}_${os}_amd64.zip"
